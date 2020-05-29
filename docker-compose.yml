@@ -1,0 +1,8 @@
+version: '3'
+services:
+  workspace:
+    build:
+      context: ./docker/workspace
+    tty: true
+    volumes:
+      - ./src:/app
