@@ -44,6 +44,13 @@ http {
 }
 EOF 
 }
+
+mysql_slow_on() {
+  sudo mysql -e "set global slow_query_log_file = '$(MYSQL_LOG)'; set global long_query_time = 0; set global slow_query_log = ON;"
+}
+mysql_slow_off() {
+  sudo mysql -e "set global slow_query_log = OFF;"
+}
  
 function_name=${1:-""}
 if [$function_name = ""];then
