@@ -1,8 +1,24 @@
 #!/bin/bash
+
 set -eu
 cd $(dirname $0)
+
+#DB_HOST=127.0.0.1
+#DB_PORT=3306
+#DB_USER=isucari
+#DB_PASS=isucari
+#DB_NAME=isucari
+#MYSQL_CMD:="mysql -h${DB_HOST} -P${DB_PORT} -u${DB_USER} -p${DB_PASS} ${DB_NAME}"
+
+NGX_LOG=/tmp/access.log
+MYSQL_LOG=/tmp/slow-query.log
+
+GIT_USER_EMAIL="xxx@xxx.com"
+GIT_USER_NAME="kooooohe"
 setup() {
   echo "start"
+  git config --global user.email ${GIT_USER_EMAIL}
+	git config --global user.name ${GIT_USER_NAME}
   sudo apt install -y percona-toolkit dstat git unzip snapd
   go get -u github.com/matsuu/kataribe
   kataribe -generate
@@ -11,9 +27,12 @@ setup() {
 }
 
 kataribe() {
+  sudo cat ${NGX_LOG} | kataribe -f ./kataribe.toml
 }
 
 pprof() {
+  #go tool pprof -http="0.0.0.0:8001" http://0.0.0.0:6060/debug/pprof/profile
+  go tool pprof -png -output pprof.png http://localhost:6060/debug/pprof/profile
 }
 
 nginx() {
@@ -46,7 +65,7 @@ EOF
 }
 
 mysql_slow_on() {
-  sudo mysql -e "set global slow_query_log_file = '$(MYSQL_LOG)'; set global long_query_time = 0; set global slow_query_log = ON;"
+  sudo mysql -e "set global slow_query_log_file = '${MYSQL_LOG}'; set global long_query_time = 0; set global slow_query_log = ON;"
 }
 mysql_slow_off() {
   sudo mysql -e "set global slow_query_log = OFF;"
