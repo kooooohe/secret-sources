@@ -36,7 +36,7 @@ pprof() {
 }
 
 nginx() {
-cat <<EOF > nginx.conf
+  cat << EOS > nginx.conf
 user www-data;
 worker_processes auto;
 worker_rlimit_nofile 200000;
@@ -61,7 +61,7 @@ http {
                          '"$http_referer" "$http_user_agent" $request_time';
     access_log /var/log/nginx/access.log with_time;
 }
-EOF 
+EOS
 }
 
 mysql_slow_on() {
