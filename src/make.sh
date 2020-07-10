@@ -72,7 +72,7 @@ mysql_slow_off() {
 }
  
 function_name=${1:-""}
-if [$function_name = ""];then
+if [ -z ${function_name} ]; then
   echo "set an arg"
   cat << EOS
  _  _              _                      
