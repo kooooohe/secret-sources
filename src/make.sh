@@ -29,6 +29,10 @@ setup() {
   echo "finish"
 }
 
+restart_nginx() {
+  service nginx restart
+}
+
 kataribe() {
   cat ${NGX_LOG} | kataribe -f ./kataribe.toml
 }
