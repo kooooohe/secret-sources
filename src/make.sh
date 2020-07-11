@@ -15,14 +15,17 @@ MYSQL_LOG=/tmp/slow-query.log
 
 GIT_USER_EMAIL="xxx@xxx.com"
 GIT_USER_NAME="kooooohe"
+
 setup() {
   echo "start"
   git config --global user.email ${GIT_USER_EMAIL}
 	git config --global user.name ${GIT_USER_NAME}
   sudo apt install -y percona-toolkit dstat git unzip snapd
+  echo export PATH='~/go/bin:$PATH' >> ~/.bash_profile
   go get -u github.com/matsuu/kataribe
-  kataribe -generate
+  ~/go/bin/kataribe -generate
   go get -u github.com/google/pprof
+  source ~/.bash_profile
   echo "finish"
 }
 
@@ -34,6 +37,7 @@ pprof() {
   #go tool pprof -http="0.0.0.0:8001" http://0.0.0.0:6060/debug/pprof/profile
   go tool pprof -png -output pprof.png http://localhost:6060/debug/pprof/profile
 }
+
 setup_nginx_conf() {
   cat << \EOS > nginx.conf
 user www-data;
@@ -58,7 +62,8 @@ http {
     log_format with_time '$remote_addr - $remote_user [$time_local] '
                          '"$request" $status $body_bytes_sent '
                          '"$http_referer" "$http_user_agent" $request_time';
-    access_log /var/log/nginx/access.log with_time;
+    #access_log /var/log/nginx/access.log with_time;
+    access_log /tmp/access.log with_time;
 }
 EOS
 }
@@ -66,6 +71,7 @@ EOS
 mysql_slow_on() {
   sudo mysql -e "set global slow_query_log_file = '${MYSQL_LOG}'; set global long_query_time = 0; set global slow_query_log = ON;"
 }
+
 mysql_slow_off() {
   sudo mysql -e "set global slow_query_log = OFF;"
 }
