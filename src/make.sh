@@ -85,6 +85,11 @@ EOS
   plase add function name as an argument
   functions:
     setup: install apps
+    mysql_slow_on: enable slow query mode
+    mysql_slow_of: disable slow query mode
+    kataribe: xxx
+    pprof: xxx
+    nginx: xxx
   refs:
   https://github.com/google/pprof
   https://github.com/matsuu/kataribe
