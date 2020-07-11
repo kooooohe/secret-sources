@@ -34,8 +34,7 @@ pprof() {
   #go tool pprof -http="0.0.0.0:8001" http://0.0.0.0:6060/debug/pprof/profile
   go tool pprof -png -output pprof.png http://localhost:6060/debug/pprof/profile
 }
-
-nginx() {
+setup_nginx_conf() {
   cat << EOS > nginx.conf
 user www-data;
 worker_processes auto;
@@ -89,7 +88,7 @@ EOS
     mysql_slow_of: disable slow query mode
     kataribe: xxx
     pprof: xxx
-    nginx: xxx
+    setup_nginx_conf: xxx
   refs:
   https://github.com/google/pprof
   https://github.com/matsuu/kataribe
