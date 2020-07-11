@@ -20,7 +20,7 @@ setup() {
   echo "start"
   git config --global user.email ${GIT_USER_EMAIL}
 	git config --global user.name ${GIT_USER_NAME}
-  sudo apt install -y percona-toolkit dstat git unzip snapd
+  apt install -y percona-toolkit dstat git unzip snapd
   echo export PATH='~/go/bin:$PATH' >> ~/.bash_profile
   go get -u github.com/matsuu/kataribe
   ~/go/bin/kataribe -generate
@@ -30,7 +30,7 @@ setup() {
 }
 
 kataribe() {
-  sudo cat ${NGX_LOG} | kataribe -f ./kataribe.toml
+  cat ${NGX_LOG} | kataribe -f ./kataribe.toml
 }
 
 pprof() {
@@ -66,14 +66,16 @@ http {
     access_log /tmp/access.log with_time;
 }
 EOS
+  # after install nginx
+  cp ./nginx.conf /etc/nginx/nginx.conf
 }
 
 mysql_slow_on() {
-  sudo mysql -e "set global slow_query_log_file = '${MYSQL_LOG}'; set global long_query_time = 0; set global slow_query_log = ON;"
+  mysql -e "set global slow_query_log_file = '${MYSQL_LOG}'; set global long_query_time = 0; set global slow_query_log = ON;"
 }
 
 mysql_slow_off() {
-  sudo mysql -e "set global slow_query_log = OFF;"
+  mysql -e "set global slow_query_log = OFF;"
 }
  
 function_name=${1:-""}
