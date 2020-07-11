@@ -89,6 +89,18 @@ mysql_slow_off() {
 
 mysql_dump_slow() {
   mysqldumpslow -s t "${MYSQL_LOG}" > mysql_dump_slow
+  cat << \EOS
+  mysqldumpslow -s t "${MYSQL_LOG}" > mysql_dump_slow
+  options default t
+  al: average lock time
+  ar: average rows sent
+  at: average query time
+  c: count
+  l: lock time
+  r: rows sent
+  t: query time
+EOS
+  echo "made mysql_dump_flow file"
 }
  
 function_name=${1:-""}
