@@ -35,7 +35,7 @@ pprof() {
   go tool pprof -png -output pprof.png http://localhost:6060/debug/pprof/profile
 }
 setup_nginx_conf() {
-  cat << EOS > nginx.conf
+  cat << \EOS > nginx.conf
 user www-data;
 worker_processes auto;
 worker_rlimit_nofile 200000;
