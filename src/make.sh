@@ -107,9 +107,10 @@ EOS
     setup: install apps
     mysql_slow_on: enable slow query mode
     mysql_slow_of: disable slow query mode
-    kataribe: xxx
+    kataribe: run kataribe
     pprof: xxx
-    setup_nginx_conf: xxx
+    setup_nginx_conf: make nginx.conf for kataribe
+    mysql_dump_slow: run mysqldumslow
   refs:
   https://github.com/google/pprof
   https://github.com/matsuu/kataribe
