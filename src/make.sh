@@ -102,6 +102,12 @@ mysql_dump_slow() {
 EOS
   echo "made mysql_dump_flow file"
 }
+
+setup_netdata() {
+  # install Netdata directly from GitHub source
+  #途中いろいろ着替えれるのでShellScriptではなくちょくで実行する
+  #bash <(curl -Ss https://my-netdata.io/kickstart.sh)
+}
  
 function_name=${1:-""}
 if [ -z ${function_name} ]; then
