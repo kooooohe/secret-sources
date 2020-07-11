@@ -76,10 +76,19 @@ EOS
 
 mysql_slow_on() {
   mysql -e "set global slow_query_log_file = '${MYSQL_LOG}'; set global long_query_time = 0; set global slow_query_log = ON;"
+  #設定
+  # slow_query_log=1
+  # long_query_time=1
+  # log_queries_not_using_indexes=0
+  # slow_query_log-file = /var/log/mysql/mysql-slow.sql
 }
 
 mysql_slow_off() {
   mysql -e "set global slow_query_log = OFF;"
+}
+
+mysql_dump_slow() {
+  mysqldumpslow -s t "${MYSQL_LOG}" > mysql_dump_slow
 }
  
 function_name=${1:-""}
