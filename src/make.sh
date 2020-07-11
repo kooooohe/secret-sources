@@ -21,11 +21,11 @@ setup() {
   git config --global user.email ${GIT_USER_EMAIL}
 	git config --global user.name ${GIT_USER_NAME}
   apt install -y percona-toolkit dstat git unzip snapd
-  echo export PATH='~/go/bin:$PATH' >> ~/.bash_profile
+  echo export PATH='~/go/bin:$PATH' >> ~/.bashrc
   go get -u github.com/matsuu/kataribe
   ~/go/bin/kataribe -generate
   go get -u github.com/google/pprof
-  source ~/.bash_profile
+  source ~/.bashrc
   echo "finish"
 }
 
