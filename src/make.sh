@@ -25,7 +25,7 @@ setup() {
   go get -u github.com/matsuu/kataribe
   ~/go/bin/kataribe -generate
   go get -u github.com/google/pprof
-  source ~/.bashrc
+  echo "pls run source ~/.bashrc"
   echo "finish"
 }
 
