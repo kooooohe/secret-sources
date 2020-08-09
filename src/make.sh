@@ -35,7 +35,9 @@ restart_nginx() {
 
 kataribe() {
   #直実行する必要あり
-  cat ${NGX_LOG} | kataribe -f ./kataribe.toml
+  #cat ${NGX_LOG} | kataribe -f ./kataribe.toml
+  echo 'cat '${NGX_LOG}' | kataribe -f ./kataribe.toml'
+  echo 'exec ↑'
 }
 
 pprof() {
